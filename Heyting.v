@@ -177,7 +177,28 @@ Qed.
 (* ======================================================= *)
 Theorem implication_distributive : (A \/ B -> C) <-> (A -> C) /\ (B -> C).
 Proof.
-  
+  split.
+  - intros hOrToC.
+    split.
+    { intros hA.
+      apply hOrToC.
+      left.
+      exact hA.
+    }
+    { intros hB.
+      apply hOrToC.
+      right.
+      exact hB.
+    }
+  - intros hAndToToC hOr.
+    destruct hAndToToC as [hAToC hBToC].
+    destruct hOr as [hA | hB].
+    { apply hAToC.
+      exact hA.
+    }
+    { apply hBToC.
+      exact hB.
+    }
 Qed.
 
 End HeytingAlgebra.
